@@ -1,3 +1,5 @@
+import AboutUs from "@/components/Features/AboutUs";
+
 export default function Tentang() {
-  return <div>Tentang</div>;
+  return <AboutUs />;
 }

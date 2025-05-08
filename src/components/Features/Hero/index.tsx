@@ -1,11 +1,45 @@
-import { SkewDiv } from "@/components/SkewDiv";
+"use client";
 import useObservingElement from "@/hooks/useObservingElement";
+import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
-import { useEffect } from "react";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+import React, { CSSProperties, useMemo } from "react";
+import { LazyLoadImage as Image } from "react-lazy-load-image-component";
+
+type ExtendedCSSProperties = CSSProperties & {
+  "--duration-slideshowImageEffect"?: string;
+};
+
+const imageList = Array.from({ length: 4 }).map(
+  (_, index) => `/images/towing/cassavarent-towing (${index + 1}).webp`
+);
 
 export default function Hero() {
   const { ref, targetTouched } = useObservingElement();
+  const [imageIndex, setImageIndex] = React.useState(0);
+  const effectTimeout = useMemo(() => 5000, []);
+
+  /* function showNextImage() {
+    setImageIndex((index) => {
+      if (index === imageList.length - 1) return 0;
+      return index + 1;
+    });
+  }
+  function showPrevImage() {
+    setImageIndex((index) => {
+      if (index === 0) return imageList.length - 1;
+      return index - 1;
+    });
+  } */
+
+  React.useLayoutEffect(() => {
+    setTimeout(() => {
+      if (imageIndex >= 0 && imageIndex < imageList.length - 1) {
+        setImageIndex(imageIndex + 1);
+      } else {
+        setImageIndex(0);
+      }
+    }, effectTimeout);
+  }, [effectTimeout, imageIndex]);
 
   const transparentNavbar = (touched: boolean, target: Element | null) => {
     if (touched) {
@@ -15,12 +49,12 @@ export default function Hero() {
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     const navbar = document.querySelector("#navbar");
     transparentNavbar(targetTouched, navbar);
   }, [targetTouched]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const navbar = document.querySelector("#navbar");
     if (ref.current) {
       const rect = (ref.current as HTMLElement).getBoundingClientRect();
@@ -32,34 +66,76 @@ export default function Hero() {
   }, [ref]);
 
   return (
-    <section id="hero" ref={ref}>
-      <div className="relative mx-auto max-w-screen-2xl items-start md:gap-x-2 flex flex-col md:flex-row md:h-screen">
-        <div className="flex-1 h-full flex flex-col justify-center py-16 px-4 lg:items-start">
-          <h1 className="my-6 text-4xl md:text-5xl font-bold lg:text-6xl tracking-wide">
-            Jasa Towing & Alat Berat di Baturaja
+    <section
+      aria-label="Hero Slideshow"
+      id="hero"
+      className="slideshow"
+      ref={ref}
+    >
+      <div className="slideshow-wrapper" aria-label="Slideshow Wrapper">
+        <div
+          className="slideshow-container"
+          aria-label="Slideshow Image Container"
+        >
+          {imageList.map((url, index) => (
+            <div
+              key={index}
+              className={cn(
+                "slideshow-image-wrapper",
+                imageIndex === index
+                  ? // ? "transition-opacity opacity-100 duration-500"
+                    "animate-slideshowFadeEffect"
+                  : ""
+              )}
+              style={
+                {
+                  "--duration-slideshowImageEffect": effectTimeout + "ms",
+                } as ExtendedCSSProperties
+              }
+            >
+              <Image
+                aria-hidden={imageIndex !== index}
+                aria-label={`Slide ${index + 1} Image`}
+                alt={`Cassavarent Slide Image ${index + 1}`}
+                className={cn(
+                  "slideshow-image",
+                  imageIndex === index ? "animate-slideshowZoomEffect" : ""
+                )}
+                style={{
+                  translate: `${-100 * imageIndex}%`,
+                }}
+                src={url}
+              />
+            </div>
+          ))}
+          <div className="slideshow-images-cover" />
+        </div>
+        <div
+          aria-label="Slide Main Description"
+          className="slide-main-description"
+        >
+          <h1
+            aria-label="Slide Main Title"
+            className="intersect:motion-preset-slide-right-sm"
+          >
+            Cassava Rent All
           </h1>
-          <p className="mb-8 max-w-xl text-muted-foreground lg:text-xl">
+          <p
+            aria-label="Slide Main Description"
+            className="intersect:motion-preset-slide-right-sm motion-delay-200"
+          >
             Solusi terbaik bagi anda yang membutuhkan transportasi untuk
             membantu pemindahan jadi lebih mudah. Jasa towing perusahaan kami
             dapat melakukan pengiriman dan juga Sewa Alat Berat.
           </p>
-          <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
-            <SkewDiv asChild percentage={10} variant="left">
-              <a
-                href="#tentang"
-                className="text-secondary font-bold bg-gradient-to-r from-primary/80 to-yellow-200 hover:bg-gradient-to-l px-10 py-4 flex items-center justify-center gap-4 group tracking-wide"
-              >
-                Tentang Cassava Rent
-                <ArrowRight className="size-5 group-hover:rotate-90 rotate-0 transition-transform duration-150 ease-in" />
-              </a>
-            </SkewDiv>
-          </div>
+          <a
+            href="#service"
+            className="cta-button group intersect:motion-preset-slide-right-sm motion-delay-400"
+          >
+            Layanan Kami
+            <ArrowRight className="group-hover:rotate-45" />
+          </a>
         </div>
-        <LazyLoadImage
-          src="/images/towing-tanah.png"
-          alt="Cassava Rents"
-          className="h-full object-cover object-left md:w-1/2 lg:w-3/5"
-        />
       </div>
     </section>
   );

@@ -1,3 +1,5 @@
+import GaleriFeature from "@/components/Features/Galeri";
+
 export default function Galeri() {
-  return <div>Galeri</div>;
+  return <GaleriFeature />;
 }
