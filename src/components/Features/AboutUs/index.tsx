@@ -18,7 +18,7 @@ export default function AboutUs() {
             </p>
             <p>
               CASSAVA RENT ALL merupakan penyedia berbagai layanan jasa, seperti
-              Jasa Towing, Jasa Loader, Jasa sewa Dumpt Truk, dan Jasa Sewa
+              Jasa Towing, Jasa Self Loader, Jasa sewa Dumpt Truk, dan Jasa Sewa
               Excavator
             </p>
             <p>

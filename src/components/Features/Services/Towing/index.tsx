@@ -30,7 +30,7 @@ export default function Towing() {
             </p>
             <ul className="list-decimal pl-4 leading-10">
               <li>Mengangkut kendaraan Baru</li>
-              <li>Menggangkut Kendaraan Kolesi / Supercar</li>
+              <li>Menggangkut Kendaraan Koleksi / Supercar</li>
               <li>Menggangkut Kendaraan yang mogok</li>
               <li>
                 Menggangkut dan memindahkan kendaraan rusak akibat kecelakaan

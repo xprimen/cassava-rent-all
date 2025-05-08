@@ -56,7 +56,7 @@ export default function Excavator() {
 
         <div className="w-full md:px-8 gap-4 grid grid-cols-1 md:grid-cols-2">
           <LazyLoadImage
-            src={`/images/excavator/cassavarent-excavator (1).webp`}
+            src={`/images/excavator/cassavarent-excavator (2).webp`}
             className={`rounded-xl motion-preset-blur-up motion-duration-[2s] bg-white/90 w-full`}
           />
           <div className="flex flex-col w-full text-secondary-foreground md:text-xl md:px-8 gap-y-4">
@@ -66,7 +66,7 @@ export default function Excavator() {
               <li>Bobot Kerja 6 Ton </li>
               <li>Panjang Jangkauan Gali 4 Meter </li>
               <li>Volume Bucket 0,22m3 – 0,5m3 </li>
-              <li>Lebar Blade</li>
+              <li>Lebar Blade 2000mm</li>
               <li>Panjang Track 2500mm </li>
               <li>Lebar track 2000mm</li>
             </ul>
@@ -75,7 +75,7 @@ export default function Excavator() {
 
         <div className="w-full md:px-8 gap-4 grid grid-cols-1 md:grid-cols-2">
           <LazyLoadImage
-            src={`/images/excavator/cassavarent-excavator (2).webp`}
+            src={`/images/excavator/cassavarent-excavator (1).webp`}
             className={`rounded-xl motion-preset-blur-up motion-duration-[2s] bg-white/90 w-full`}
           />
           <div className="flex flex-col w-full text-secondary-foreground md:text-xl md:px-8 gap-y-4">
@@ -85,7 +85,7 @@ export default function Excavator() {
               <li>Bobot Kerja 7,5 Ton </li>
               <li>Panjang Jangkauan Gali 6 Meter </li>
               <li>Volume Bucket 0,33 - 0,7m3 </li>
-              <li>Lebar Blade 230mm</li>
+              <li>Lebar Blade 2300mm</li>
               <li>Panjang Track 2760mm </li>
               <li>Lebar track 2630mm</li>
             </ul>
